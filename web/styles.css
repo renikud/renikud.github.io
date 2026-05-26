@@ -72,16 +72,25 @@ a:hover { color: var(--accent-hover); text-decoration: underline; }
 
 .logo span { color: var(--accent); }
 
-.nav { display: flex; gap: 1.5rem; }
-
-.nav a {
-  color: var(--text-secondary);
-  font-size: 0.9rem;
-  font-weight: 500;
-  text-decoration: none;
+.nav {
+  display: flex;
+  gap: 1.75rem;
 }
 
-.nav a:hover { color: var(--accent); text-decoration: none; }
+.nav a {
+  font-family: var(--font-serif);
+  font-size: 0.975rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.nav a:hover {
+  color: var(--text-primary);
+  text-decoration: none;
+}
 
 /* Hero — split layout, not centered stack */
 
@@ -93,7 +102,7 @@ a:hover { color: var(--accent-hover); text-decoration: underline; }
 
 .hero-grid {
   display: grid;
-  grid-template-columns: 1.12fr 0.88fr;
+  grid-template-columns: 1.22fr 0.78fr;
   gap: 3.25rem;
   align-items: stretch;
 }
@@ -102,7 +111,21 @@ a:hover { color: var(--accent-hover); text-decoration: underline; }
 
 .hero-aside {
   display: flex;
+  flex-direction: column;
   min-height: 100%;
+}
+
+.hero-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-height: 100%;
+  padding: 1.65rem 1.75rem 1.5rem;
+  background: var(--accent-soft);
+  border: 1px solid rgba(68, 64, 60, 0.12);
+  border-radius: calc(var(--radius) + 4px);
+  box-shadow: var(--shadow);
 }
 
 .kicker {
@@ -153,6 +176,7 @@ a:hover { color: var(--accent-hover); text-decoration: underline; }
 .author-line {
   display: flex;
   flex-wrap: wrap;
+  align-items: baseline;
   gap: 0 1.25rem;
   font-size: 1.05rem;
   line-height: 1.55;
@@ -173,21 +197,27 @@ a:hover { color: var(--accent-hover); text-decoration: underline; }
 }
 
 .author-line sup {
-  margin-left: 0.08em;
+  margin-left: 0.12em;
   font-size: 0.72em;
 }
 
 .affil-line {
   display: flex;
   flex-wrap: wrap;
-  gap: 0 1.25rem;
-  margin-top: 0.4rem;
-  font-size: 0.925rem;
+  align-items: baseline;
+  gap: 0.35rem 1.25rem;
+  margin-top: 0.55rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
   color: var(--text-secondary);
 }
 
+.affil-line span {
+  white-space: nowrap;
+}
+
 .affil-line sup {
-  margin-right: 0.1em;
+  margin-right: 0.12em;
   font-size: 0.72em;
 }
 
@@ -290,18 +320,6 @@ a:hover { color: var(--accent-hover); text-decoration: underline; }
 }
 
 /* Hero aside — showcase panel */
-
-.hero-panel {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  padding: 1.65rem 1.75rem 1.5rem;
-  background: var(--accent-soft);
-  border: 1px solid rgba(68, 64, 60, 0.12);
-  border-radius: calc(var(--radius) + 4px);
-  box-shadow: var(--shadow);
-}
 
 .hero-panel-head {
   flex-shrink: 0;
@@ -1036,6 +1054,10 @@ a:hover { color: var(--accent-hover); text-decoration: underline; }
 
 @media (max-width: 768px) {
   .nav { display: none; }
+
+  .hero {
+    padding: 2.75rem 0 2.25rem;
+  }
 
   .hero-grid {
     grid-template-columns: 1fr;

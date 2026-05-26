@@ -1,31 +1,40 @@
-// Initialize Lucide icons
-lucide.createIcons();
+if (typeof hljs !== 'undefined') {
+    hljs.registerLanguage('bibtex', (hljs) => ({
+        name: 'BibTeX',
+        case_insensitive: true,
+        contains: [
+            hljs.COMMENT('%', '$'),
+            { className: 'keyword', begin: /@[a-z]+(?=\{)/i },
+            { className: 'symbol', begin: /(?<=\{)[a-z0-9_-]+(?=,)/i },
+            { className: 'attr', begin: /\b[a-z]+\s*(?==)/i },
+            {
+                className: 'string',
+                begin: /=\s*\{/,
+                end: /\}/,
+                excludeBegin: true,
+                excludeEnd: true,
+            },
+            { className: 'punctuation', begin: /[{},=]/ },
+        ],
+    }));
 
-// Single media playback functionality is in single-media-playback.js
+    document.querySelectorAll('.cite code.language-bibtex').forEach((el) => {
+        hljs.highlightElement(el);
+    });
+}
 
-// Copy citation function
-function copyToClipboard() {
-    const citation = document.querySelector('.citation-box pre code').textContent;
-    navigator.clipboard.writeText(citation).then(() => {
-        const btn = document.querySelector('.copy-btn');
-        const originalHTML = btn.innerHTML;
-        btn.innerHTML = '<i data-lucide="check"></i>';
-        btn.style.color = '#16a34a';
-        lucide.createIcons({ nodes: [btn] });
+document.getElementById('copy-cite')?.addEventListener('click', () => {
+    const code = document.querySelector('.cite pre code');
+    if (!code) return;
+
+    navigator.clipboard.writeText(code.textContent).then(() => {
+        const btn = document.getElementById('copy-cite');
+        const prev = btn.textContent;
+        btn.textContent = 'Copied!';
+        btn.style.color = '#292524';
         setTimeout(() => {
-            btn.innerHTML = originalHTML;
+            btn.textContent = prev;
             btn.style.color = '';
         }, 2000);
     });
-}
-
-
-function scrollToNext() {
-  const nextSection = document.querySelector('.architecture');
-  if (nextSection) {
-    nextSection.scrollIntoView({ 
-      behavior: 'smooth',
-      block: 'start'
-    });
-  }
-}
+});

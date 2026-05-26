@@ -4,491 +4,383 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    
-    <!-- Disable Cache -->
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-    <meta http-equiv="Pragma" content="no-cache" />
-    <meta http-equiv="Expires" content="0" />
 
-    <!-- Page Title -->
-    <title>
-        Phonikud: Hebrew Grapheme-to-Phoneme Conversion for Real-Time
-        Text-to-Speech
-    </title>
-
-    <!-- SEO Meta Tags -->
+    <title>ReNikud: Audio-Supervised Hebrew Grapheme-to-Phoneme Conversion</title>
     <meta name="description"
-        content="A novel approach for real-time Hebrew TTS that addresses phonetic ambiguity with grapheme-to-phoneme conversion." />
-    <meta name="keywords"
-        content="Phonikud, Hebrew TTS, text-to-speech, phonetic disambiguation, real-time synthesis, Hebrew NLP, speech synthesis" />
+        content="ReNikud learns Hebrew pronunciation from thousands of hours of unlabeled speech via weak audio supervision and a pseudo-vocalization architecture." />
 
-    <!-- Open Graph (Facebook, LinkedIn, Telegram, WhatsApp) -->
-    <meta property="og:url" content="https://phonikud.github.io/" />
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="Phonikud: Hebrew Grapheme-to-Phoneme Conversion for Real-Time Text-to-Speech" />
+    <meta property="og:title" content="ReNikud: Audio-Supervised Hebrew G2P" />
     <meta property="og:description"
-        content="A novel approach for real-time Hebrew TTS that addresses phonetic ambiguity with grapheme-to-phoneme conversion." />
-    <meta property="og:image" content="https://thewh1teagle.github.io/phonikud-paper/media/architecture.png" />
-    <meta property="og:image:type" content="image/png" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta property="og:site_name" content="Phonikud" />
+        content="Learn Hebrew pronunciation from unlabeled audio. Pseudo-vocalization for spoken, not just formal, Hebrew." />
+    <meta property="og:site_name" content="ReNikud" />
 
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:domain" content="phonikud.github.io" />
-    <meta name="twitter:url" content="https://phonikud.github.io" />
-    <meta name="twitter:title" content="Phonikud: Hebrew Grapheme-to-Phoneme Conversion for Real-Time Text-to-Speech" />
-    <meta name="twitter:description"
-        content="A novel approach for real-time Hebrew TTS that addresses phonetic ambiguity with grapheme-to-phoneme conversion." />
-    <meta name="twitter:image" content="https://thewh1teagle.github.io/phonikud-paper/media/architecture.png" />
-
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="./media/favicon.ico" />
-
-    <!-- Fonts & Icons -->
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
-        rel="stylesheet" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
-
-    <!-- CSS -->
-    <link rel="stylesheet" href="styles.css" />
-
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600&amp;display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+Hebrew:wght@400;600;700&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./styles.css" />
 </head>
+
 <body>
-    <!-- Hero Section -->
-    <section class="hero main-hero">
-        <div class="container">
-            <div class="hero-content">
-                <h1>Phonikud</h1>
-                <p class="hero-subtitle">
-                    Hebrew Grapheme-to-Phoneme Conversion <br />for Real-Time
-                    Text-to-Speech
-                </p>
-
-                <div class="author-list">
-                    <span class="author"><a target="_blank" href="https://www.linkedin.com/in/yakov-kolani">Yakov
-                            Kolani</a><sup>1</sup></span>
-                    <span class="author"><a target="_blank" href="https://www.linkedin.com/in/max-melichov">Maxim
-                            Melichov</a><sup>2</sup></span>
-                    <span class="author"><a target="_blank" href="https://www.linkedin.com/in/kcalev">Cobi
-                            Calev</a><sup>1</sup></span>
-                    <span class="author"><a target="_blank" href="https://morrisalp.github.io/">Morris
-                            Alper</a><sup>3</sup></span>
-                </div>
-                <div class="affiliations">
-                    <span><sup>1</sup>Independent Researcher</span>
-                    <span><sup>2</sup>Reichman University</span>
-                    <span><sup>3</sup>Tel Aviv University</span>
-                </div>
-
-          <div class="btn-group">
-            <a
-              href="https://arxiv.org/pdf/2506.12311"
-              target="_blank"
-              class="btn btn-primary"
-            >
-              <i class="fas fa-file-pdf"></i>
-              Paper
-            </a>
-            <a
-              href="https://github.com/thewh1teagle/phonikud"
-              target="_blank"
-              class="btn"
-            >
-              <i class="fab fa-github"></i>
-              Code
-            </a>
-            <a
-              href="https://huggingface.co/datasets/thewh1teagle/ILSpeech"
-              target="_blank"
-              class="btn"
-            >
-              <i class="fa-solid fa-database"></i>
-              Data
-            </a>
-            <a
-              href="https://huggingface.co/spaces/thewh1teagle/phonikud-tts"
-              target="_blank"
-              class="btn"
-            >
-              <i class="fas fa-play"></i>
-              Demo
-            </a>
-            <a href="https://arxiv.org/abs/2506.12311" target="_blank" class="btn">
-              <img
-                src="media/arxiv.svg"
-                alt="arXiv"
-                style="height: 1em; vertical-align: middle"
-              />
-              arXiv
-            </a>
-          </div>
-          <!-- ADD THIS NEW MOBILE SCROLL BUTTON -->
-         <!-- ADD THIS NEW MOBILE SCROLL BUTTON -->
-      <div class="mobile-scroll-btn">
-        <button class="scroll-down-btn" onclick="scrollToNext()">
-          <i class="fas fa-chevron-down"></i>
-        </button>
-      </div>
+    <header class="topbar">
+        <div class="wrap topbar-inner">
+            <a class="logo" href="#">Re<span>Nikud</span></a>
+            <nav class="nav">
+                <a href="#gap">Gap</a>
+                <a href="#method">Method</a>
+                <a href="#examples">Examples</a>
+                <a href="#citation">Cite</a>
+            </nav>
         </div>
-    </section>
+    </header>
 
-    <!-- Architecture Section -->
-    <section class="architecture">
-        <div class="container">
-            <div class="architecture-visual">
-                <div class="architecture-placeholder">
-                    <img src="media/architecture.svg" alt="Model Architecture" class="architecture-image" />
-                </div>
-            </div>
-        </div>
-    </section>
+    <main>
+        <section class="hero">
+            <div class="wrap hero-grid">
+                <div class="hero-main">
+                    <p class="kicker">Research · Hebrew G2P</p>
+                    <h1 class="hero-title">Re<span class="accent">Nikud</span></h1>
+                    <p class="paper-title">Audio-Supervised Hebrew Grapheme-to-Phoneme Conversion</p>
+                    <p class="hero-lead">
+                        Pronunciation learned from real speech — not only from scarce, formal vocalization text.
+                    </p>
 
-    <!-- Abstract Section -->
-<!-- Abstract Section -->
-<section class="abstract">
-    <div class="container">
-        <div class="section-header">
-            <h2 class="section-title">Introduction</h2>
-        </div>
-        <div class="abstract-content">
-            <p>
-                Real-time text-to-speech for Modern Hebrew is challenging due to its complex writing system and underspecified phonetic features. <em>Phonikud</em> is a lightweight, open-source grapheme-to-phoneme system that produces fully-specified IPA transcriptions with minimal latency. Alongside it, we release <em>ILSpeech</em>, an expert-annotated Hebrew speech dataset for benchmarking and training.
-            </p>
-        </div>
-    </div>
-</section>
-
-
-
-
-    <section class="key-features">
-      <div class="container">
-        <div class="section-header">
-        <h2 class="section-title">What Makes Us Different</h2>
-        </div>
-        <div class="features-list">
-          <div class="feature-item">
-            <div class="feature-icon"><i data-lucide="timer"></i></div>
-            <div>
-              <h3>Real-Time Inference</h3>
-              <p>Works with real-time TTS like Piper using IPA phonemes.</p>
-            </div>
-          </div>
-
-                <div class="feature-item">
-                    <div class="feature-icon"><i data-lucide="cpu"></i></div>
-                    <div>
-                        <h3>Edge Deployment</h3>
-                        <p>Runs locally on Raspberry Pi and edge devices.</p>
-                    </div>
-                </div>
-
-                <div class="feature-item">
-                    <div class="feature-icon"><i data-lucide="bar-chart-3"></i></div>
-                    <div>
-                        <h3>Data-Efficient Training</h3>
-                        <p>Fine-tunes TTS with as little as 2 hours of data.</p>
-                    </div>
-                </div>
-
-                <div class="feature-item">
-                    <div class="feature-icon"><i data-lucide="languages"></i></div>
-                    <div>
-                        <h3>Hebrew Phonetics</h3>
-                        <p>Handles stress and vocal shva missed by others.</p>
-                    </div>
-                </div>
-
-                <div class="feature-item">
-                    <div class="feature-icon"><i data-lucide="accessibility"></i></div>
-                    <div>
-                        <h3>Assistive Tech</h3>
-                        <p>Low-latency screen reader support, even offline.</p>
-                    </div>
-                </div>
-
-                <div class="feature-item">
-                    <div class="feature-icon"><i data-lucide="mic"></i></div>
-                    <div>
-                        <h3>Open TTS Dataset</h3>
-                        <p>Studio-quality Hebrew speech with IPA annotations.</p>
-                    </div>
-                </div>
-
-                <div class="feature-item">
-                    <div class="feature-icon"><i data-lucide="package-open"></i></div>
-                    <div>
-                        <h3>Open Models & Training</h3>
-                        <p>Weights, TTS models, and training code included.</p>
-                    </div>
-                </div>
-                <div class="feature-item">
-                    <div class="feature-icon"><i data-lucide="sliders-horizontal"></i></div>
-                    <div>
-                        <h3>Fine-Grained Phonetic Control</h3>
-                        <p>Edit phonemes directly or let G2P handle it.
+                    <div class="author-block">
+                        <p class="author-line">
+                            <span><a href="https://www.linkedin.com/in/max-melichov" target="_blank" rel="noopener">Maxim Melichov</a><sup>1</sup></span>
+                            <span><a href="https://www.linkedin.com/in/yakov-kolani" target="_blank" rel="noopener">Yakov Kolani</a><sup>2</sup></span>
+                            <span><a href="https://morrisalp.github.io/" target="_blank" rel="noopener">Morris Alper</a><sup>3</sup></span>
+                        </p>
+                        <p class="affil-line">
+                            <span><sup>1</sup>Reichman University</span>
+                            <span><sup>2</sup>Independent Researcher</span>
+                            <span><sup>3</sup>Carnegie Mellon University</span>
                         </p>
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <section class="process-section">
-        <div class="section-header">
-            <h2 class="section-title">From Text to Speech</h2>
-            <p class="section-subtitle">See how Phonikud transforms Hebrew text through each stage.</p>
-        </div>
-
-        <div class="process-card">
-            <div class="process-step">
-                <div class="step-header">
-                    <div class="step-number">1</div>
-                    <div class="step-title">Text</div>
-                </div>
-                <div class="step-content">
-                    <div class="hebrew-text">השפה העברית נשמעת יפה כשמבטאים אותה נכון</div>
-                </div>
-                <div class="step-caption">Input: Regular Hebrew text without vowel markings</div>
-            </div>
-
-            <div class="process-step">
-                <div class="step-header">
-                    <div class="step-number">2</div>
-                    <div class="step-title">Diacritics</div>
-                </div>
-                <div class="step-content">
-                    <div class="hebrew-text">הַשָּׂפָה הָעִבְרִית נִשְׁמַ֫עַת יָפָה כְּשֶׁמְּֽבַטְּאִים אוֹתָהּ נָכוֹן
+                    <div class="cta-row">
+                        <a class="btn btn-secondary btn-paper" href="https://arxiv.org/pdf/2506.12311" target="_blank" rel="noopener" aria-label="Paper on arXiv">
+                            <img class="btn-icon btn-icon--arxiv" src="./assets/icons/arxiv-logomark.svg" alt="" width="16" height="16" />
+                            <span>Paper</span>
+                        </a>
+                        <a class="btn btn-secondary" href="https://github.com/thewh1teagle/renikud" target="_blank" rel="noopener" aria-label="Code on GitHub">
+                            <img class="btn-icon" src="./assets/icons/github-mark.svg" alt="" width="16" height="16" />
+                            <span>Code</span>
+                        </a>
+                        <a class="btn btn-secondary" href="https://huggingface.co/renikud" target="_blank" rel="noopener" title="Pseudo-labeled Hebrew–IPA training data" aria-label="Dataset on Hugging Face">
+                            <img class="btn-icon btn-icon--hf" src="./assets/icons/huggingface-color.svg" alt="" width="18" height="18" />
+                            <span>Dataset</span>
+                        </a>
+                        <a class="btn btn-secondary" href="https://huggingface.co/datasets/renikud/MILIM-Bench" target="_blank" rel="noopener" title="MILIM spoken Hebrew G2P benchmark" aria-label="Benchmark on Hugging Face">
+                            <img class="btn-icon" src="./assets/icons/benchmark.svg" alt="" width="16" height="16" />
+                            <span>Benchmark</span>
+                        </a>
                     </div>
                 </div>
-                <div class="step-caption">Enhanced diacritics with stress markers and vocal shva</div>
-            </div>
 
-            <div class="process-step">
-                <div class="step-header">
-                    <div class="step-number">3</div>
-                    <div class="step-title">Phonemes</div>
-                </div>
-                <div class="step-content">
-                    <div class="ipa-text">hasafˈa haʔivʁˈit niʃmˈaʔat jafˈa kʃemevatʔˈim ʔotˈa naχˈon.</div>
-                </div>
-                <div class="step-caption">Phonikud converts to precise IPA phonetic transcription</div>
-            </div>
+                <aside class="hero-aside">
+                    <div class="hero-panel">
+                        <header class="hero-panel-head">
+                            <p class="hero-panel-title">Hebrew → IPA from real speech</p>
+                        </header>
 
-            <div class="process-step">
-                <div class="step-header">
-                    <div class="step-number">4</div>
-                    <div class="step-title">Audio</div>
-                </div>
-                <div class="step-content">
-                    <div class="audio-container">
-                        <audio class="audio-player" controls>
-                            <source src="samples/from_text_to_speech.m4a" type="audio/wav" />
-                            Your browser does not support the audio element.
-                        </audio>
+                        <div class="hero-panel-stage">
+                            <p class="hero-panel-he" lang="he">ובדרך</p>
+                            <div class="hero-panel-compare">
+                                <div class="hero-panel-col hero-panel-col--formal">
+                                    <span class="hero-panel-col-label">Nikud-aligned</span>
+                                    <span class="hero-panel-col-ipa">ubadˈeʁeχ</span>
+                                </div>
+                                <div class="hero-panel-col hero-panel-col--spoken">
+                                    <span class="hero-panel-col-label">Spoken</span>
+                                    <span class="hero-panel-col-ipa">vebadˈeʁeχ</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <p class="hero-panel-meta">
+                            <span>1,700+ hrs Israeli speech</span>
+                            <span class="hero-panel-meta-sep" aria-hidden="true">·</span>
+                            <span>1.52M Hebrew–IPA pairs</span>
+                        </p>
+                    </div>
+                </aside>
+            </div>
+        </section>
+
+        <div class="page-body">
+            <section id="gap" class="section">
+                <div class="wrap">
+                    <header class="section-head">
+                        <span class="section-num">01</span>
+                        <h2>The gap</h2>
+                        <p>Nikud describes formal grammar. Spoken Hebrew diverges.</p>
+                    </header>
+
+                    <div class="two-col">
+                        <div class="prose">
+                            <p>
+                                Standard G2P predicts vowel diacritics and prescriptive rules. Everyday speech
+                                shifts vowels, simplifies conjunctions, and pronounces loanwords by ear.
+                            </p>
+                            <p>
+                                ReNikud learns from thousands of hours of real speech with character-level
+                                alignment — avoiding seq2seq hallucinations on limited text data.
+                            </p>
+                        </div>
+
+                        <div class="examples">
+                            <article class="compare-card">
+                                <p class="compare-category">Colloquial phonology · conjunction</p>
+                                <p class="compare-he"><span class="he-glyphs" lang="he">ובדרך</span></p>
+                                <div class="compare-pron">
+                                    <p class="pron-row pron-baseline">
+                                        <span class="pron-label">Prescriptive nikud</span>
+                                        <span class="pron-ipa">ubadˈeʁeχ</span>
+                                    </p>
+                                    <p class="pron-row pron-target">
+                                        <span class="pron-label">Spoken norm</span>
+                                        <span class="pron-ipa">vebadˈeʁeχ</span>
+                                    </p>
+                                </div>
+                            </article>
+                            <article class="compare-card">
+                                <p class="compare-category">Colloquial vowel shift</p>
+                                <p class="compare-he"><span class="he-glyphs" lang="he">בירושלים</span></p>
+                                <div class="compare-pron">
+                                    <p class="pron-row pron-baseline">
+                                        <span class="pron-label">Prescriptive nikud</span>
+                                        <span class="pron-ipa">biʁuʃalˈajim</span>
+                                    </p>
+                                    <p class="pron-row pron-target">
+                                        <span class="pron-label">Spoken norm</span>
+                                        <span class="pron-ipa">bejeʁuʃalˈajim</span>
+                                    </p>
+                                </div>
+                            </article>
+                        </div>
                     </div>
                 </div>
-                <div class="step-caption">Real-time TTS synthesis from phonemes - listen to the result</div>
-            </div>
+            </section>
 
-            <div class="process-step">
-                <div class="step-header">
-                    <div class="step-number">💡</div>
-                    <div class="step-title">Flexible Input</div>
-                </div>
-                <div class="step-content">
-                    <div style="text-align: center; color: var(--text-secondary); font-size: 0.95rem;">
-                        <strong>Pro tip:</strong> You can input at any stage! Whether you want the model to add
-                        diacritics, add them yourself, or directly input phonemes. Try it in the demo!
+            <section id="method" class="section section-alt">
+                <div class="wrap">
+                    <header class="section-head">
+                        <span class="section-num">02</span>
+                        <h2>Method</h2>
+                        <p>Weak labels from audio, then per-character pseudo-vocalization.</p>
+                    </header>
+
+                    <div class="method-stages">
+                        <article class="step">
+                            <div class="step-num">1</div>
+                            <div class="step-body">
+                                <h3>Audio pseudo-labeling</h3>
+                                <p>Parallel ASR on unlabeled speech produces Hebrew and IPA transcripts. An FST filter keeps only pairs that align — 1.52M sentences from ~1.7k hours.</p>
+
+                                <div class="pipeline-demo">
+                                    <p class="method-demo-caption">Same clip · two ASR transcripts</p>
+
+                                    <div class="pipeline-split">
+                                        <div class="pipeline-asr">
+                                            <span class="pipeline-asr-label">Hebrew ASR</span>
+                                            <div class="pipeline-asr-out">
+                                                <span class="he-glyphs he-glyphs--compact" lang="he">שלום</span>
+                                            </div>
+                                        </div>
+                                        <div class="pipeline-asr">
+                                            <span class="pipeline-asr-label">IPA ASR</span>
+                                            <div class="pipeline-asr-out"><code>ʃalˈom</code></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="pipeline-filter">
+                                        <span class="pipeline-filter-label">FST filter</span>
+                                        <div class="pipeline-verdicts">
+                                            <div class="pipeline-verdict pipeline-verdict--pass">
+                                                <div class="pipeline-verdict-pair">
+                                                    <span class="he-glyphs he-glyphs--compact" lang="he">שלום</span>
+                                                    <code>ʃalˈom</code>
+                                                </div>
+                                                <span class="pipeline-verdict-tag">keep</span>
+                                            </div>
+                                            <div class="pipeline-verdict pipeline-verdict--fail">
+                                                <div class="pipeline-verdict-pair">
+                                                    <span class="he-glyphs he-glyphs--compact" lang="he">שלום</span>
+                                                    <code>ʃagˈom</code>
+                                                </div>
+                                                <span class="pipeline-verdict-tag">drop</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="step">
+                            <div class="step-num">2</div>
+                            <div class="step-body">
+                                <h3>Pseudo-vocalization</h3>
+                                <p>Character-level encoder with three parallel heads per letter — consonant, vowel, stress. Trained on FST-aligned pseudo-labels from step 1; constrained decoding yields spoken IPA.</p>
+
+                                <div class="align-demo">
+                                    <div class="align-demo-head">
+                                        <span class="align-demo-source">FST-aligned labels</span>
+                                        <p class="method-demo-caption">Per character · <span class="he-glyphs he-glyphs--inline" lang="he">שלום</span> → <code>ʃalˈom</code></p>
+                                    </div>
+                                    <div class="align-grid">
+                                        <div class="align-row">
+                                            <span class="align-row-label"></span>
+                                            <span class="align-cell he" dir="rtl">ש</span>
+                                            <span class="align-cell he" dir="rtl">ל</span>
+                                            <span class="align-cell he" dir="rtl">ו</span>
+                                            <span class="align-cell he" dir="rtl">ם</span>
+                                        </div>
+                                        <div class="align-row">
+                                            <span class="align-row-label">C</span>
+                                            <span class="align-cell"><code>/ʃ/</code></span>
+                                            <span class="align-cell"><code>/l/</code></span>
+                                            <span class="align-cell muted">∅</span>
+                                            <span class="align-cell"><code>/m/</code></span>
+                                        </div>
+                                        <div class="align-row">
+                                            <span class="align-row-label">V</span>
+                                            <span class="align-cell"><code>a</code></span>
+                                            <span class="align-cell"><code>o</code></span>
+                                            <span class="align-cell muted">∅</span>
+                                            <span class="align-cell muted">∅</span>
+                                        </div>
+                                        <div class="align-row">
+                                            <span class="align-row-label align-row-label--sigma">σ</span>
+                                            <span class="align-cell muted">0</span>
+                                            <span class="align-cell muted">1</span>
+                                            <span class="align-cell muted">0</span>
+                                            <span class="align-cell muted">0</span>
+                                        </div>
+                                    </div>
+                                    <p class="method-demo-note">C · consonant &nbsp; V · vowel &nbsp; σ · lexical stress</p>
+                                </div>
+
+                                <div class="chips">
+                                    <span class="chip">Consonant · 25 classes</span>
+                                    <span class="chip">Vowel · 7 classes</span>
+                                    <span class="chip">Stress · binary</span>
+                                </div>
+                            </div>
+                        </article>
                     </div>
                 </div>
-                <div class="step-caption">Full control over the pipeline - input text, diacritics, or phonemes</div>
-            </div>
-        </div>
-    </section>
+            </section>
 
-    <!-- Comparison Section -->
-    <section class="comparison">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Method Comparison</h2>
-                <p>
-                    Comparative evaluation of Phonikud against existing Hebrew TTS
-                    approaches
-                </p>
-            </div>
+            <section id="examples" class="section">
+                <div class="wrap">
+                    <header class="section-head">
+                        <span class="section-num">03</span>
+                        <h2>Spoken Hebrew</h2>
+                        <p>Targeted cases from MILIM — slang, colloquial phonology, stress, and rare phonemes.</p>
+                    </header>
 
-            <table class="comparison-table">
-     <thead>
-    <tr>
-        <th>
-            Text Sample
-        </th>
-        <th>
-            ElevenLabs
-            <div class="caption">Eleven v3</div>
-        </th>
-        <th>
-            Google
-            <div class="caption">Gemini v2.5</div>
-        </th>
-        <th>
-            RoboShaul
-            <div class="caption">1st place</div>
-        </th>
-        <th class="method-ours">
-            Phonikud (Ours)
-            <div class="caption">Ours v1 (alpha)</div>
-        </th>
-    </tr>
-</thead>
-                <tbody>
-                    <tr>
-                        <td class="hebrew-text">
-                          הוא צפה בס֫רט וראה חיה שצ֫פה במ֫ים  <span class="emoji">🐸</span>
-                        </td>
+                    <div class="spoken-grid">
+                        <article class="compare-card">
+                            <p class="compare-category">Lexical slang</p>
+                            <p class="compare-he"><span class="he-glyphs" lang="he">פאדיחה</span></p>
+                            <div class="compare-pron">
+                                <p class="pron-row pron-baseline">
+                                    <span class="pron-label">Dictionary vowels</span>
+                                    <span class="pron-ipa">padiχˈa</span>
+                                </p>
+                                <p class="pron-row pron-target">
+                                    <span class="pron-label">Slang norm</span>
+                                    <span class="pron-ipa">fadˈiχa</span>
+                                </p>
+                            </div>
+                        </article>
+                        <article class="compare-card">
+                            <p class="compare-category">Colloquial phonology · conjunction</p>
+                            <p class="compare-he"><span class="he-glyphs" lang="he">ומשפחה</span></p>
+                            <div class="compare-pron">
+                                <p class="pron-row pron-baseline">
+                                    <span class="pron-label">Normative /u/</span>
+                                    <span class="pron-ipa">umiʃpaxˈa</span>
+                                </p>
+                                <p class="pron-row pron-target">
+                                    <span class="pron-label">Colloquial /ve/</span>
+                                    <span class="pron-ipa">vemiʃpaχˈa</span>
+                                </p>
+                            </div>
+                        </article>
+                        <article class="compare-card">
+                            <p class="compare-category">Penultimate stress · loanword</p>
+                            <p class="compare-he"><span class="he-glyphs" lang="he">קונספט</span></p>
+                            <div class="compare-pron">
+                                <p class="pron-row pron-baseline">
+                                    <span class="pron-label">Mil’ra bias</span>
+                                    <span class="pron-ipa">konsˈept</span>
+                                </p>
+                                <p class="pron-row pron-target">
+                                    <span class="pron-label">Mil’el target</span>
+                                    <span class="pron-ipa">kˈonsept</span>
+                                </p>
+                            </div>
+                        </article>
+                        <article class="compare-card">
+                            <p class="compare-category">Rare phoneme · /ʒ/</p>
+                            <p class="compare-he"><span class="he-glyphs" lang="he">ז׳אנר</span></p>
+                            <div class="compare-pron">
+                                <p class="pron-row pron-baseline">
+                                    <span class="pron-label">Stress misplacement</span>
+                                    <span class="pron-ipa">haʒanˈeʁ</span>
+                                </p>
+                                <p class="pron-row pron-target">
+                                    <span class="pron-label">Geresh · /ʒ/</span>
+                                    <span class="pron-ipa">haʒˈaneʁ</span>
+                                </p>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </section>
 
-                        <td class="method-eleven">
-                            <audio controls>
-                                <source src="samples/eleven_1.mp3" type="audio/wav" />
-                            </audio>
-                        </td>
-                        <td class="method-roboshul">
-                            <audio controls>
-                                <source src="samples/google_1.opus" type="audio/wav" />
-                            </audio>
-                        </td>
-                        <td class="method-lohtm">
-                            <audio controls>
-                                <source src="samples/roboshaul_1.opus" type="audio/wav" />
-                            </audio>
-                        </td>
-                        <td class="method-ours">
-                            <audio controls>
-                                <source src="./samples/phonikud_1.m4a" type="audio/wav" />
-                            </audio>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="hebrew-text">
-                            הוא רצה את זה גם אבל היא ר֫צה מהר והקד֫ימה אותו <span class="emoji">🏃‍♀️</span>
-                        </td>
-                        <td class="method-mms">
-                            <audio controls>
-                                <source src="samples/eleven_2.opus" type="audio/wav" />
-                            </audio>
-                        </td>
-                        <td class="method-roboshul">
-                            <audio controls>
-                                <source src="samples/google_2.opus" type="audio/wav" />
-                            </audio>
-                        </td>
-                        <td class="method-lohtm">
-                            <audio controls>
-                                <source src="samples/roboshaul_2.opus" type="audio/wav" />
-                            </audio>
-                        </td>
-                        <td class="method-ours">
-                            <audio controls>
-                                <source src="samples/phonikud_2.m4a" type="audio/wav" />
-                            </audio>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="hebrew-text">
-                            בוא תרד לאכול יש בור֫קס עם ת֫רד <span class="emoji">🥬</span>
-                        </td>
-                        <td class="method-mms">
-                            <audio controls>
-                                <source src="samples/eleven_3.opus" type="audio/wav" />
-                            </audio>
-                        </td>
-                        <td class="method-roboshul">
-                            <audio controls>
-                                <source src="samples/google_3.opus" type="audio/wav" />
-                            </audio>
-                        </td>
-                        <td class="method-lohtm">
-                            <audio controls>
-                                <source src="samples/roboshaul_3.opus" type="audio/wav" />
-                            </audio>
-                        </td>
-                        <td class="method-ours">
-                            <audio controls>
-                                <source src="samples/phonikud_3.m4a" type="audio/wav" />
-                            </audio>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </section>
+            <section class="section section-alt">
+                <div class="wrap narrow">
+                    <header class="section-head left">
+                        <span class="section-num">—</span>
+                        <h2>Abstract</h2>
+                    </header>
+                    <div class="prose">
+                        <p>Grapheme-to-phoneme conversion for Modern Hebrew is needed for text-to-speech, but the abjad writing system leaves vowels unwritten. Standard approaches predict nikud to produce IPA — yet vocalization data is scarce, stress is underspecified, and rules reflect formal grammar rather than everyday speech.</p>
+                        <p>ReNikud uses weak audio supervision via an ASR pseudo-labeling pipeline on thousands of hours of unlabeled Hebrew audio, plus a pseudo-vocalization architecture that predicts IPA at each character position. On Hebrew G2P benchmarks and targeted test suites for spoken Hebrew, ReNikud surpasses prior state-of-the-art.</p>
+                    </div>
+                </div>
+            </section>
 
-    <!-- More Content Section -->
-    <section class="more-content">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Explore More</h2>
-                <p>See more <a href="explore.html" class="inline-link">resources, demos, and tools</a> to explore Phonikud</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Citation Section -->
-    <section class="citation">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Citation</h2>
-            </div>
-            <div class="citation-box">
-                <button class="copy-btn" onclick="copyToClipboard()">
-                    <i data-lucide="copy"></i>
-                </button>
-                <pre><code>@misc{kolani2025phonikud,
-  title={Phonikud: Hebrew Grapheme-to-Phoneme Conversion for Real-Time Text-to-Speech},
-  author={Yakov Kolani and Maxim Melichov and Cobi Calev and Morris Alper},
-  year={2025},
-  eprint={2506.12311},
-  archivePrefix={arXiv},
-  primaryClass={cs.CL},
-  url={https://arxiv.org/abs/2506.12311},
+            <section id="citation" class="section">
+                <div class="wrap narrow">
+                    <header class="section-head left">
+                        <span class="section-num">—</span>
+                        <h2>Citation</h2>
+                    </header>
+                    <div class="cite">
+                        <button type="button" class="copy-btn" id="copy-cite">Copy</button>
+                        <pre><code class="language-bibtex">@misc{melichov2026renikud,
+  title={ReNikud: Audio-Supervised Hebrew Grapheme-to-Phoneme Conversion},
+  author={Maxim Melichov and Yakov Kolani and Morris Alper},
+  year={2026},
+  note={Code and models forthcoming},
 }</code></pre>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-left">
-                    <p class="copyright">Phonikud. Open Source Hebrew Grapheme to Phoneme</p>
-                </div>
-                <div class="footer-right">
-                    <div class="footer-links">
-                        <a href="https://github.com/thewh1teagle/phonikud" target="_blank" class="footer-link">
-                            <i class="fab fa-github"></i>
-                        </a>
-                        <a href="https://huggingface.co/datasets/thewh1teagle/ILSpeech" target="_blank" class="footer-link">
-                            <img src="./media/hf-logo.svg" alt="Hugging Face" width="24" height="24" />
-                        </a>
-                        <a href="https://discord.gg/trfCMfhhum" target="_blank" class="footer-link">
-                            <i class="fab fa-discord"></i>
-                        </a>
                     </div>
                 </div>
-            </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="wrap footer-inner">
+            <span>ReNikud · pseudo-vocalization from speech</span>
         </div>
     </footer>
 
-    <script src="single-media-playback.js"></script>
-    <script src="script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+    <script src="./script.js"></script>
 </body>
 
 </html>

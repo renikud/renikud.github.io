@@ -191,15 +191,15 @@ a:hover { color: var(--accent-hover); text-decoration: underline; }
 }
 
 .author-line a {
-  color: var(--text-primary);
+  color: #2563eb;
   font-weight: 500;
   text-decoration: none;
-  border-bottom: 1px solid rgba(68, 64, 60, 0.22);
+  border-bottom: 1px solid rgba(37, 99, 235, 0.28);
 }
 
 .author-line a:hover {
-  color: var(--accent);
-  border-bottom-color: var(--accent);
+  color: #1d4ed8;
+  border-bottom-color: #1d4ed8;
   text-decoration: none;
 }
 

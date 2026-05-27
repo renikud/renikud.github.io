@@ -38,3 +38,33 @@ document.getElementById('copy-cite')?.addEventListener('click', () => {
         }, 2000);
     });
 });
+
+const playIcon = '<svg class="audio-play-icon" viewBox="0 0 12 14" aria-hidden="true"><path fill="currentColor" d="M1 1.5v11l10-5.5L1 1.5z"/></svg>';
+const pauseIcon = '<svg class="audio-play-icon" viewBox="0 0 12 14" aria-hidden="true"><path fill="currentColor" d="M1.5 1.5h3v11h-3v-11zm6 0h3v11h-3v-11z"/></svg>';
+
+document.querySelectorAll('.audio-play-btn').forEach((btn) => {
+    const audio = btn.parentElement?.querySelector('audio');
+    if (!audio) return;
+
+    btn.addEventListener('click', () => {
+        if (audio.paused) {
+            audio.play();
+        } else {
+            audio.pause();
+            audio.currentTime = 0;
+        }
+    });
+
+    audio.addEventListener('play', () => {
+        btn.classList.add('is-playing');
+        btn.innerHTML = pauseIcon;
+    });
+
+    const resetButton = () => {
+        btn.classList.remove('is-playing');
+        btn.innerHTML = playIcon;
+    };
+
+    audio.addEventListener('pause', resetButton);
+    audio.addEventListener('ended', resetButton);
+});

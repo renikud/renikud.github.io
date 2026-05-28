@@ -7,11 +7,11 @@
 
     <title>ReNikud: Audio-Supervised Hebrew Grapheme-to-Phoneme Conversion</title>
     <meta name="description"
-        content="ReNikud learns Hebrew pronunciation from thousands of hours of unlabeled speech via weak audio supervision and a pseudo-vocalization architecture." />
+        content="ReNikud is an audio-supervised Hebrew G2P method using ASR pseudo-labels and character-aligned IPA prediction." />
 
     <meta property="og:title" content="ReNikud: Audio-Supervised Hebrew G2P" />
     <meta property="og:description"
-        content="Learn Hebrew pronunciation from unlabeled audio. Pseudo-vocalization for spoken, not just formal, Hebrew." />
+        content="Audio-supervised Hebrew G2P with ASR pseudo-labels and character-aligned pseudo-vocalization." />
     <meta property="og:site_name" content="ReNikud" />
 
     <link rel="icon" type="image/png" href="./media/favicon.png" />
@@ -43,7 +43,7 @@
                     <h1 class="hero-title">Re<span class="accent">Nikud</span></h1>
                     <p class="paper-title">Audio-Supervised Hebrew Grapheme-to-Phoneme Conversion</p>
                     <p class="hero-lead">
-                        Pronunciation learned from real speech — not only from scarce, formal vocalization text.
+                        Standard Hebrew G2P is usually trained on nikud-style text; ReNikud adds weak supervision from speech to model spoken pronunciation.
                     </p>
 
                     <div class="author-block">
@@ -125,19 +125,13 @@
                     <header class="section-head">
                         <span class="section-num">01</span>
                         <h2>The gap</h2>
-                        <p>Nikud describes formal grammar. Spoken Hebrew diverges.</p>
+                        <p>Prescriptive vocalization and spoken pronunciation do not always match.</p>
                     </header>
 
                     <div class="two-col">
                         <div class="prose">
-                            <p>
-                                Standard G2P predicts vowel diacritics and prescriptive rules. Everyday speech
-                                shifts vowels, simplifies conjunctions, and pronounces loanwords by ear.
-                            </p>
-                            <p>
-                                ReNikud uses weak supervision from speech to train a character-aligned
-                                pseudo-vocalization model for spoken Hebrew G2P.
-                            </p>
+                            <p>Standard G2P predicts vowel diacritics and prescriptive rules. Everyday speech shifts vowels, simplifies conjunctions, and pronounces loanwords by ear.</p>
+                            <p>ReNikud uses weak supervision from speech to train a character-aligned pseudo-vocalization model for spoken Hebrew G2P.</p>
                         </div>
 
                         <div class="examples">
@@ -431,8 +425,8 @@
                         <h2>Abstract</h2>
                     </header>
                     <div class="prose">
-                        <p>Grapheme-to-phoneme conversion for Modern Hebrew is needed for text-to-speech, but the abjad writing system leaves vowels unwritten. Standard approaches predict nikud to produce IPA — yet vocalization data is scarce, stress is underspecified, and rules reflect formal grammar rather than everyday speech.</p>
-                        <p>ReNikud uses weak audio supervision via an ASR pseudo-labeling pipeline on thousands of hours of unlabeled Hebrew audio, plus a pseudo-vocalization architecture that predicts IPA at each character position. On Hebrew G2P benchmarks and targeted test suites for spoken Hebrew, ReNikud surpasses prior state-of-the-art.</p>
+                        <p>Modern Hebrew grapheme-to-phoneme conversion is hard because Hebrew orthography is an abjad, with most vowels omitted in writing. Common pipelines infer pronunciation via nikud, but this depends on scarce annotated vocalization data, does not fully represent lexical stress, and reflects prescriptive norms more than everyday spoken usage.</p>
+                        <p>ReNikud is an audio-supervised Hebrew G2P method. It builds phonemic pseudo-labels from large unlabeled Hebrew speech corpora using ASR, then trains a character-aligned pseudo-vocalization model that predicts IPA realizations at each grapheme position. On established Hebrew G2P benchmarks and targeted spoken-Hebrew evaluations, ReNikud improves over prior baselines.</p>
                     </div>
                 </div>
             </section>

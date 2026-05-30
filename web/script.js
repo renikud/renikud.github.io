@@ -48,7 +48,18 @@ document.querySelectorAll('.audio-play-btn').forEach((btn) => {
 
     btn.addEventListener('click', () => {
         if (audio.paused) {
-            audio.play();
+            document.querySelectorAll('audio, video').forEach((otherMedia) => {
+                if (otherMedia !== audio) {
+                    otherMedia.pause();
+                    otherMedia.currentTime = 0;
+                }
+            });
+
+            audio.currentTime = 0;
+            audio.play().catch(() => {
+                btn.classList.remove('is-playing');
+                btn.innerHTML = playIcon;
+            });
         } else {
             audio.pause();
             audio.currentTime = 0;

@@ -39,6 +39,56 @@ document.getElementById('copy-cite')?.addEventListener('click', () => {
     });
 });
 
+const clearAlignmentHighlights = () => {
+    document.querySelectorAll('.is-linked').forEach((el) => {
+        el.classList.remove('is-linked');
+    });
+};
+
+const setAlignmentHighlight = (targets) => {
+    clearAlignmentHighlights();
+    targets.forEach((target) => {
+        const [col] = target.split('-');
+        document.querySelector(`[data-align-col="${col}"]`)?.classList.add('is-linked');
+        document.querySelectorAll(`[data-align-part~="${target}"], [data-align-target="${target}"]`).forEach((el) => {
+            el.classList.add('is-linked');
+            el.closest('.align-pair')?.classList.add('is-linked');
+        });
+    });
+};
+
+document.querySelectorAll('[data-align-target]').forEach((cell) => {
+    const targets = cell.dataset.alignTarget.split(/\s+/).filter(Boolean);
+    cell.addEventListener('mouseenter', () => setAlignmentHighlight(targets));
+    cell.addEventListener('focus', () => setAlignmentHighlight(targets));
+    cell.addEventListener('mouseleave', clearAlignmentHighlights);
+    cell.addEventListener('blur', clearAlignmentHighlights);
+});
+
+document.querySelectorAll('[data-align-col]').forEach((pair) => {
+    const col = pair.dataset.alignCol;
+    const targets = [`${col}-c`, `${col}-v`, `${col}-s`];
+    pair.addEventListener('mouseenter', () => setAlignmentHighlight(targets));
+    pair.addEventListener('focusin', () => setAlignmentHighlight(targets));
+    pair.addEventListener('mouseleave', clearAlignmentHighlights);
+    pair.addEventListener('focusout', clearAlignmentHighlights);
+});
+
+document.querySelectorAll('[data-align-part]').forEach((part) => {
+    const targets = part.dataset.alignPart.split(/\s+/).filter(Boolean);
+    const pair = part.closest('[data-align-col]');
+
+    part.addEventListener('mouseenter', () => setAlignmentHighlight(targets));
+    part.addEventListener('mouseleave', () => {
+        if (pair?.matches(':hover')) {
+            const col = pair.dataset.alignCol;
+            setAlignmentHighlight([`${col}-c`, `${col}-v`, `${col}-s`]);
+        } else {
+            clearAlignmentHighlights();
+        }
+    });
+});
+
 const playIcon = '<svg class="audio-play-icon" viewBox="0 0 12 14" aria-hidden="true"><path fill="currentColor" d="M1 1.5v11l10-5.5L1 1.5z"/></svg>';
 const pauseIcon = '<svg class="audio-play-icon" viewBox="0 0 12 14" aria-hidden="true"><path fill="currentColor" d="M1.5 1.5h3v11h-3v-11zm6 0h3v11h-3v-11z"/></svg>';
 

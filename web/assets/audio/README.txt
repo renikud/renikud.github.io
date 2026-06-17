@@ -6,8 +6,8 @@ Regenerate from IPA with local BlueTTS:
 
 The generator synthesizes each IPA token with a trailing period.
 
-examples/hero-nikud-aligned.m4a    — hero panel, nikud-aligned (ubadˈeʁeχ)
-examples/hero-spoken.m4a           — hero panel, spoken (vebadˈeʁeχ)
+examples/vebaderech-baseline.m4a   — prescriptive nikud (uvadˈeʁeχ)
+examples/vebaderech-spoken.m4a     — spoken norm (vebadˈeʁeχ)
 examples/vebaderech-baseline.m4a   — gap card, prescriptive
 examples/vebaderech-spoken.m4a     — gap card, spoken norm
 examples/biyrushalayim-baseline.m4a

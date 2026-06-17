@@ -8,11 +8,26 @@
     <title>ReNikud: Audio-Supervised Hebrew Grapheme-to-Phoneme Conversion</title>
     <meta name="description"
         content="ReNikud is an audio-supervised Hebrew G2P method using ASR pseudo-labels and character-aligned IPA prediction." />
+    <meta name="keywords" content="Hebrew, G2P, grapheme-to-phoneme, nikud, vocalization, ASR, IPA, TTS, speech synthesis, NLP" />
 
+    <meta property="og:url" content="https://renikud.github.io/" />
+    <meta property="og:type" content="website" />
     <meta property="og:title" content="ReNikud: Audio-Supervised Hebrew G2P" />
     <meta property="og:description"
         content="Audio-supervised Hebrew G2P with ASR pseudo-labels and character-aligned pseudo-vocalization." />
+    <meta property="og:image" content="https://renikud.github.io/web/media/renikud-system.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     <meta property="og:site_name" content="ReNikud" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:domain" content="renikud.github.io" />
+    <meta name="twitter:url" content="https://renikud.github.io" />
+    <meta name="twitter:title" content="ReNikud: Audio-Supervised Hebrew G2P" />
+    <meta name="twitter:description"
+        content="Audio-supervised Hebrew G2P with ASR pseudo-labels and character-aligned pseudo-vocalization." />
+    <meta name="twitter:image" content="https://renikud.github.io/web/media/renikud-system.png" />
 
     <link rel="icon" type="image/png" href="./media/favicon.png" />
     <link rel="shortcut icon" href="./media/favicon.ico" />
@@ -94,8 +109,8 @@
                                         <button type="button" class="audio-play-btn" aria-label="Play nikud-aligned pronunciation">
                                             <svg class="audio-play-icon" viewBox="0 0 12 14" aria-hidden="true"><path fill="currentColor" d="M1 1.5v11l10-5.5L1 1.5z"/></svg>
                                         </button>
-                                        <audio preload="none" src="./assets/audio/examples/hero-nikud-aligned.m4a"></audio>
-                                        <span class="hero-panel-col-ipa">ubadˈeʁeχ</span>
+                                        <audio preload="none" src="./assets/audio/examples/vebaderech-baseline.m4a"></audio>
+                                        <span class="hero-panel-col-ipa">uvadˈeʁeχ</span>
                                     </div>
                                 </div>
                                 <div class="hero-panel-col hero-panel-col--spoken">
@@ -104,7 +119,7 @@
                                         <button type="button" class="audio-play-btn" aria-label="Play spoken pronunciation">
                                             <svg class="audio-play-icon" viewBox="0 0 12 14" aria-hidden="true"><path fill="currentColor" d="M1 1.5v11l10-5.5L1 1.5z"/></svg>
                                         </button>
-                                        <audio preload="none" src="./assets/audio/examples/hero-spoken.m4a"></audio>
+                                        <audio preload="none" src="./assets/audio/examples/vebaderech-spoken.m4a"></audio>
                                         <span class="hero-panel-col-ipa">vebadˈeʁeχ</span>
                                     </div>
                                 </div>
@@ -146,7 +161,7 @@
                                                 <svg class="audio-play-icon" viewBox="0 0 12 14" aria-hidden="true"><path fill="currentColor" d="M1 1.5v11l10-5.5L1 1.5z"/></svg>
                                             </button>
                                             <audio preload="none" src="./assets/audio/examples/vebaderech-baseline.m4a"></audio>
-                                            <span class="pron-ipa">ubadˈeʁeχ</span>
+                                            <span class="pron-ipa">uvadˈeʁeχ</span>
                                         </span>
                                     </p>
                                     <p class="pron-row pron-target">
@@ -360,9 +375,9 @@
                             <p class="compare-he"><span class="he-glyphs" lang="he">פאדיחה</span></p>
                             <div class="compare-pron">
                                 <p class="pron-row pron-baseline">
-                                    <span class="pron-label">Dictionary vowels</span>
+                                    <span class="pron-label">Prescriptive nikud</span>
                                     <span class="pron-audio">
-                                        <button type="button" class="audio-play-btn" aria-label="Play dictionary pronunciation">
+                                        <button type="button" class="audio-play-btn" aria-label="Play prescriptive pronunciation">
                                             <svg class="audio-play-icon" viewBox="0 0 12 14" aria-hidden="true"><path fill="currentColor" d="M1 1.5v11l10-5.5L1 1.5z"/></svg>
                                         </button>
                                         <audio preload="none" src="./assets/audio/examples/fadicha-baseline.m4a"></audio>

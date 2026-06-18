@@ -1,4 +1,4 @@
-Site audio lives in examples/ as flat .m4a files.
+Site audio lives in examples/ as flat audio files.
 
 Regenerate from IPA with local BlueTTS:
 
@@ -18,5 +18,5 @@ examples/vemishpacha-baseline.m4a
 examples/vemishpacha-spoken.m4a
 examples/konsept-baseline.m4a
 examples/konsept-spoken.m4a
-examples/hazhaner-baseline.m4a
-examples/hazhaner-spoken.m4a
+examples/wiski-baseline.wav
+examples/wiski-spoken.wav

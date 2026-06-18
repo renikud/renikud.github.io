@@ -129,3 +129,33 @@ document.querySelectorAll('.audio-play-btn').forEach((btn) => {
     audio.addEventListener('pause', resetButton);
     audio.addEventListener('ended', resetButton);
 });
+
+// Clamp chip tooltips to stay within the viewport horizontally.
+document.querySelectorAll('.chip--tip').forEach(chip => {
+    const showTip = () => {
+        const tip = chip.querySelector('.chip-tip');
+        if (!tip) return;
+        tip.style.left = '';
+        tip.style.transform = '';
+        const r = tip.getBoundingClientRect();
+        const pad = 8;
+        let shift = 0;
+        if (r.right > window.innerWidth - pad) shift = window.innerWidth - pad - r.right;
+        if (r.left + shift < pad) shift = pad - r.left;
+        if (shift !== 0) {
+            tip.style.left = `calc(50% + ${shift}px)`;
+            const caret = tip.querySelector('::after');
+            tip.style.setProperty('--caret-shift', `${-shift}px`);
+        }
+    };
+    const resetTip = () => {
+        const tip = chip.querySelector('.chip-tip');
+        if (!tip) return;
+        tip.style.left = '';
+        tip.style.removeProperty('--caret-shift');
+    };
+    chip.addEventListener('mouseenter', showTip);
+    chip.addEventListener('focusin', showTip);
+    chip.addEventListener('mouseleave', resetTip);
+    chip.addEventListener('focusout', resetTip);
+});

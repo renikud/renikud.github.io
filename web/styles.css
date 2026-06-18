@@ -25,9 +25,10 @@
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; overflow-x: hidden; }
 
 body {
+  overflow-x: hidden;
   font-family: var(--font-body);
   font-size: 1rem;
   line-height: 1.6;
@@ -1099,7 +1100,7 @@ a:hover { color: var(--accent-hover); text-decoration: underline; }
 .chip-tip::after {
   content: "";
   position: absolute;
-  left: 50%;
+  left: calc(50% + var(--caret-shift, 0px));
   bottom: -0.36rem;
   width: 0.7rem;
   height: 0.7rem;
@@ -1616,20 +1617,6 @@ a:hover { color: var(--accent-hover); text-decoration: underline; }
     justify-content: center;
   }
 
-  .chip-tip {
-    left: 0;
-    transform: translate(0, 0.25rem);
-  }
-
-  .chip-tip::after {
-    left: 1.5rem;
-  }
-
-  .chip--tip:hover .chip-tip,
-  .chip--tip:focus-visible .chip-tip,
-  .chip--tip:focus-within .chip-tip {
-    transform: translate(0, 0);
-  }
 
   .align-row {
     grid-template-columns: 2.45rem repeat(4, minmax(0, 1fr));

@@ -249,6 +249,36 @@ a:hover { color: var(--accent-hover); text-decoration: underline; }
 }
 
 
+.venue-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7em;
+  width: auto;
+  margin: 0 auto 1.75rem;
+  color: var(--accent);
+}
+
+.venue-badge .venue-name {
+  font-family: var(--font-serif);
+  color: var(--text-primary);
+  font-size: 1.4rem;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: 0.2px;
+  white-space: nowrap;
+}
+
+.venue-badge .venue-rule {
+  width: 48px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border));
+}
+
+.venue-badge .venue-rule:last-child {
+  background: linear-gradient(90deg, var(--border), transparent);
+}
+
 .cta-row {
   display: flex;
   flex-wrap: nowrap;
